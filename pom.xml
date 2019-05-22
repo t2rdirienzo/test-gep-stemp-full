@@ -169,14 +169,6 @@
                 <group>dcs</group>
                 <autoRequires>false</autoRequires>
                 <autoProvides>false</autoProvides>
-
-
-                  <defineStatements>
-                    <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-                  </defineStatements>
-
-
-
                 <mappings>
                   <mapping>
                     <directory>/application</directory>
@@ -218,31 +210,7 @@
                     </sources>
                     <filemode>755</filemode>
                   </mapping>
-
-                    <mapping>
-                      <directory>/application/dependencies/python/</directory>
-                      <sources>
-                        <source>
-                          <location>${basedir}/src/main/app-resources/dependencies/python/packages.list</location>
-                        </source>
-                      </sources>
-                    </mapping>
-
-
                 </mappings>
-
-<requires>
-                    <require>idl</require>
-                    <require>miniconda</require>
-                    <require>libgeotiff</require>
-                    <require>STEMP-S2</require>
-</requires>
-
-                  <postinstallScriptlet>
-                    <script>conda install -y --file /application/dependencies/python/packages.list</script>
-                  </postinstallScriptlet>
-
-
               </configuration>
             </execution>
           </executions>
@@ -258,109 +226,7 @@
     </extensions>
   </build>
   <profiles>
-    <profile>
-      <id>install-and-test</id>
-      <activation>
-        <property>
-          <name>env</name>
-          <value>sandbox</value>
-        </property>
-      </activation>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-snapshots</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </snapshotRepository>
-        <repository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-releases</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </repository>
-      </distributionManagement>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
-            <configuration>
-              <filesets>
-                <fileset>
-                  <directory>/application</directory>
-                  <includes>
-                    <include>**/*</include>
-                  </includes>
-                  <excludes>
-                    <!-- added to be retro-compatible with the old BEAM package -->
-                    <exclude>**/share/**</exclude>
-                  </excludes>
-                  <followSymlinks>false</followSymlinks>
-                </fileset>
-              </filesets>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.6</version>
-            <executions>
-              <execution>
-                <id>copy-app-resources</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>/application</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>${basedir}/src/main/app-resources/</directory>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>create target</id>
-                <phase>initialize</phase>
-                <configuration>
-                  <target>
-                    <mkdir dir="${project.build.directory}"/>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>change perm</id>
-                <phase>install</phase>
-                <configuration>
-                  <target>
-                    <chmod dir="/application" includes="**/run**" perm="755"/>
-                    <chmod dir="/application" includes="**/bin**" perm="755"/>
-                    <chmod dir="/application" includes="**/*.sh" perm="755"/>
-                    <chmod dir="/application" includes="**/*.py" perm="755"/>
-                    <chmod dir="/application" includes="**/*.R" perm="755"/>
-                    <chmod dir="/application" includes="**/*.exe" perm="755"/>
-                    <chmod dir="/application" includes="**/*.sav" perm="755"/>
-                    <chmod file="/application/application.xml" perm="664"/>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+
     <profile>
       <id>package-app</id>
       <activation>
@@ -421,244 +287,90 @@
             <artifactId>maven-site-plugin</artifactId>
             <version>3.0</version>
           </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>package-docker</id>
-      <activation>
-        <property>
-          <name>env</name>
-          <value>ci</value>
-        </property>
-      </activation>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-snapshots</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </snapshotRepository>
-        <repository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-releases</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </repository>
-      </distributionManagement>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>com.terradue</groupId>
-                      <artifactId>dcs-parent</artifactId>
-                      <classifier>docker</classifier>
-                      <version>${dcsparent.version}</version>
-                      <type>zip</type>
-                    </artifactItem>
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}</outputDirectory>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>com.google.code.maven-replacer-plugin</groupId>
-            <artifactId>replacer</artifactId>
-            <version>1.5.2</version>
-            <executions>
-              <execution>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>replace</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <ignoreMissingFile>false</ignoreMissingFile>
-              <file>${project.build.directory}/docker-pack/Dockerfile</file>
-              <replacements>
-                <replacement>
-                  <token>%RPM_PATH%</token>
-                  <value>${project.artifactId}-${rpm.version}-${rpm.release}.noarch.rpm</value>
-                </replacement>
-              </replacements>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.0.2</version>
-            <executions>
-              <execution>
-                <id>copy-resources</id>
-                <!-- here the phase you need -->
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/docker-pack</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/</directory>
-                      <includes>
-                        <include>${project.artifactId}-${rpm.version}-${rpm.release}.noarch.rpm</include>
-                      </includes>
-                      <filtering>false</filtering>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>0.20.1</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>build</goal>
-                  <goal>push</goal>
-                  <goal>remove</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <autoPull>always</autoPull>
-              <verbose>true</verbose>
-              <images>
-                <image>
-                  <name>${docker.repository}/${community}/${project.artifactId}:${project.version}</name>
-                  <build>
-                    <dockerFileDir>${project.build.directory}/docker-pack</dockerFileDir>
-                  </build>
-                </image>
-              </images>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>release</id>
-      <activation>
-        <property>
-          <name>release</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <properties>
-        <yumRepoType>stable</yumRepoType>
-      </properties>
-    </profile>
-    <profile>
-      <id>deploy-application</id>
-      <activation>
-        <property>
-          <name>env</name>
-          <value>ci</value>
-        </property>
-      </activation>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-snapshots</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </snapshotRepository>
-        <repository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-releases</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </repository>
-      </distributionManagement>
-      <build>
-        <plugins>
+
 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.3.1</version>
-            <executions>
- 				<execution>
-                <id>add ows file</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>curl</executable>
-                  <arguments>
-				    <argument>-L</argument>
-                    <argument>-o</argument>
-                    <argument>${basedir}/src/main/app-resources/application-context.xml</argument>
-                    <argument>--data</argument>
-                    <argument>@${basedir}/src/main/app-resources/application.xml</argument>
-                    <argument>-X</argument>
-                    <argument>POST</argument>
-                    <argument>https://t2-app-ows.terradue.com/t2dep/owscontext.cgi?deploy=/${community}/${project.artifactId}/${project.version}/application.xml</argument>
-                  </arguments>
-                  <!--<outputFile>${basedir}/src/main/app-resources/dependencies/python/packages.list</outputFile>-->
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
+            <artifactId>rpm-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>deploy-applicationxml</id>
+                <id>generate-rpm</id>
+				<phase>compile</phase>
                 <goals>
-                  <goal>deploy-file</goal>
+                  <goal>rpm</goal>
                 </goals>
-                <phase>deploy</phase>
                 <configuration>
-                  <file>${basedir}/src/main/app-resources/application.xml</file>
-                  <groupId>${community}</groupId>
-                  <url>https://store.terradue.com/api/${community}/_applications</url>
-                  <generatePom>false</generatePom>
-                  <repositoryId>store.terradue.com</repositoryId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>application</classifier>
-                  <packaging>xml</packaging>
+                  <defineStatements>
+                    <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+                  </defineStatements>
+                  <mappings combine.children="append">
+                    <mapping>
+                      <directory>/application/dependencies/python/</directory>
+                      <sources>
+                        <source>
+                          <location>${basedir}/src/main/app-resources/dependencies/python/packages.list</location>
+                        </source>
+                      </sources>
+                    </mapping>
+                  </mappings>
+				
+				<requires>
+                    <require>idl</require>
+                    <require>miniconda</require>
+                    <require>libgeotiff</require>
+                    <require>STEMP-S2</require>
+				</requires>
+
+
+
+                  <postinstallScriptlet combine.children="append">
+                    <script>conda install -y --file /application/dependencies/python/packages.list</script>
+                  </postinstallScriptlet>
                 </configuration>
               </execution>
-
-			<execution>
-                <id>deploy-application-context.xml</id>
-                <goals>
-                  <goal>deploy-file</goal>
-                </goals>
-                <phase>deploy</phase>
-                <configuration>
-                  <file>${basedir}/src/main/app-resources/application-context.xml</file>
-                  <groupId>${community}</groupId>
-                  <url>https://store.terradue.com/api/${community}/_applications</url>
-                  <generatePom>false</generatePom>
-                  <repositoryId>store.terradue.com</repositoryId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <classifier>application-context</classifier>
-                  <packaging>xml</packaging>
-                </configuration>
-              </execution>
-
             </executions>
           </plugin>
+
+					<plugin>
+						<groupId>t2pc.t2</groupId>
+						<artifactId>t2pc-mvn-build</artifactId>
+						<version>1.0</version>
+						<configuration>
+
+							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
+							<applicationUser>${t2user}</applicationUser>
+							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
+							<dockerImage>${workflowContainer}</dockerImage>
+							<t2pcCallbackUri>${t2pcCallbackUri}</t2pcCallbackUri>
+							<apikey></apikey>
+
+						</configuration>
+						<executions>
+							<execution>
+								<id>t2pcBuild</id>
+								<phase>package</phase>
+								<goals>
+									<goal>t2pcBuild</goal>
+								</goals>
+							</execution>
+							
+							<execution>
+								<id>t2pcPreset</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>t2pcPreset</goal>
+								</goals>
+							</execution>
+							
+						</executions>
+					</plugin>
+
+
         </plugins>
       </build>
     </profile>
+
+
+
   </profiles>
 </project>

@@ -18,6 +18,23 @@
 		<description>dcs-stemp-s2-full</description>
 		<community>geohazards-tep</community>
 		<yumRepo>geohazards-tep</yumRepo>
+
+
+<!-- PARENT -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
+    <implementation.build>${scmBranch}@r${buildNumber};${maven.build.timestamp}</implementation.build>
+    <rpmBasedir>${project.build.directory}/rpm</rpmBasedir>
+    <rpmTopdir>${project.build.directory}/rpm/${project.artifactId}</rpmTopdir>
+    <yumRepo>null</yumRepo>
+    <yumRepoType>testing</yumRepoType>
+<!-- PARENT -->
+
+
+
+
 	</properties>
 	<scm>
 		<connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>

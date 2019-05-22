@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>it.ingv</groupId>
+	<artifactId>dcs-stemp-s2-full</artifactId>
+	<packaging>pom</packaging>
+	<name>dcs-stemp-s2-full</name>
+	<!-- <parent>
+    <groupId>com.terradue</groupId>
+    <artifactId>dcs-python-parent</artifactId>
+    <version>3.0.1-docker</version>
+  </parent> -->
+	<description>dcs-stemp-s2-full</description>
+	<version>1.2.1</version>
+	<properties>
+		<summary>dcs-stemp-s2-full</summary>
+		<description>dcs-stemp-s2-full</description>
+		<community>geohazards-tep</community>
+		<yumRepo>geohazards-tep</yumRepo>
+	</properties>
+	<scm>
+		<connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
+		<developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
+		<url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
+		<tag>HEAD</tag>
+	</scm>
+	<profiles>
+		<profile>
+			<id>package-app</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>ci</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+
+
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<version>2.1.5</version>
+						<executions>
+							<execution>
+								<id>generate-rpm</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>rpm</goal>
+								</goals>
+								<configuration>
+									<copyright>${project.inceptionYear}, Terradue, GPL</copyright>
+									<distribution>Terradue ${project.inceptionYear}</distribution>
+									<packager>Terradue</packager>
+									<name>${project.artifactId}</name>
+									<defaultUsername>root</defaultUsername>
+									<defaultGroupname>root</defaultGroupname>
+									<defaultDirmode>755</defaultDirmode>
+									<defaultFilemode>644</defaultFilemode>
+									<group>dcs</group>
+									<autoRequires>false</autoRequires>
+									<autoProvides>false</autoProvides>
+									<release>${DYNAMIC.CBUILDPROP.RPM.RELEASE}.${DYNAMIC.CBUILDPROP.OS}</release>
+
+
+									<!-- PARENTPYTON -->
+									<defineStatements>
+										<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+									</defineStatements>
+									<!-- PARENTPYTON -->
+
+
+
+
+									<mappings>
+										<mapping>
+											<directory>/application</directory>
+											<directoryIncluded>false</directoryIncluded>
+											<recurseDirectories>true</recurseDirectories>
+											<sources>
+												<source>
+													<location>${basedir}/src/main/app-resources/</location>
+												</source>
+											</sources>
+										</mapping>
+										<mapping>
+											<directory>/application</directory>
+											<filemode>664</filemode>
+											<sources>
+												<source>
+													<location>${basedir}/src/main/app-resources</location>
+													<includes>
+														<include>application.xml</include>
+													</includes>
+												</source>
+											</sources>
+										</mapping>
+										<mapping>
+											<directory>/application</directory>
+											<sources>
+												<source>
+													<location>${basedir}/src/main/app-resources</location>
+													<includes>
+														<include>**/bin/**</include>
+														<include>**/run**</include>
+														<include>**/*.sh</include>
+														<include>**/*.py</include>
+														<include>**/*.R</include>
+														<include>**/*.exe</include>
+														<include>**/*.sav</include>
+													</includes>
+												</source>
+											</sources>
+											<filemode>755</filemode>
+										</mapping>
+										<!-- PARENTPYTON -->
+										<!-- <mappings combine.children="append"> -->
+										<mapping>
+											<directory>/application/dependencies/python/</directory>
+											<sources>
+												<source>
+													<location>${basedir}/src/main/app-resources/dependencies/python/packages.list</location>
+												</source>
+											</sources>
+										</mapping>
+										<!-- PARENTPYTON -->
+										<!-- </mappings> -->
+
+									</mappings>
+
+									<!-- FILE -->
+									<requires>
+										<require>idl</require>
+										<require>miniconda</require>
+										<require>libgeotiff</require>
+										<require>STEMP-S2</require>
+									</requires>
+									<!-- FILE -->
+
+
+									<!-- PARENTPYTON -->
+									<!-- <postinstallScriptlet combine.children="append"> -->
+									<postinstallScriptlet>
+										<script>conda install -y --file /application/dependencies/python/packages.list</script>
+									</postinstallScriptlet>
+									<!-- PARENTPYTON -->
+
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+
+					<plugin>
+						<groupId>t2pc.t2</groupId>
+						<artifactId>t2pc-mvn-build</artifactId>
+						<version>1.0</version>
+						<configuration>
+
+							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
+							<applicationUser>${t2user}</applicationUser>
+							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
+							<dockerImage>${workflowContainer}</dockerImage>
+							<t2pcCallbackUri>${t2pcCallbackUri}</t2pcCallbackUri>
+							<apikey></apikey>
+
+						</configuration>
+						<executions>
+							<execution>
+								<id>t2pcBuild</id>
+								<phase>package</phase>
+								<goals>
+									<goal>t2pcBuild</goal>
+								</goals>
+							</execution>
+							
+							<execution>
+								<id>t2pcPreset</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>t2pcPreset</goal>
+								</goals>
+							</execution>
+							
+						</executions>
+					</plugin>
+
+
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

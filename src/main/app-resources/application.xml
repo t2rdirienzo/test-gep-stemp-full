@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="application">
+  <jobTemplates>
+    <jobTemplate id="stemp">
+      <streamingExecutable>/application/stemp/run.sh</streamingExecutable>
+      <defaultJobconf>
+        <property id="mapred.task.timeout">3600000</property>
+      </defaultJobconf>
+    </jobTemplate>
+  </jobTemplates>
+  <workflow id="dcs-stemp-s2-full" title="STEMP-S2 Full" abstract="ERUPTIVE HOT SPOT detection obtained by multi-spectral optical sensors (Sentinel-2 ) generated in GeoTIFF format">
+    <workflowVersion>1.0</workflowVersion>
+    <node id="node-stemp">
+      <job id="stemp"/>
+      <sources>
+        <source id="s2-input" title="Sentinel-2 input" abstract="Sentinel-2 catalog reference" scope="runtime" refid="string:list" >https://catalog.terradue.com/sentinel2/search?uid=S2A_MSIL1C_20180518T205941_N0206_R014_T05QKB_20180519T000503</source>
+      </sources>
+    </node>
+  </workflow>
+</application>

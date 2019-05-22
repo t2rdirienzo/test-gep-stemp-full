@@ -1,280 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>it.ingv</groupId>
-  <artifactId>dcs-stemp-s2-full</artifactId>
-  <packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>it.ingv</groupId>
+	<artifactId>dcs-stemp-s2-full</artifactId>
+	<packaging>pom</packaging>
 	<name>dcs-stemp-s2-full</name>
 
-   <description>dcs-stemp-s2-full</description>
-<version>1.2.1</version>
+	<description>dcs-stemp-s2-full</description>
+	<version>1.2.1</version>
 
 
-  <inceptionYear>2018</inceptionYear>
-  <organization>
-    <name>Terradue S.r.l.</name>
-    <url>https://www.terradue.com/</url>
-  </organization>
-  <licenses>
-    <license>
-      <name>Terradue</name>
-    </license>
-  </licenses>
-  <ciManagement>
-    <system>Jenkins</system>
-    <url>https://build.terradue.com/</url>
-    <notifiers>
-      <notifier>
-        <type>mail</type>
-        <sendOnError>true</sendOnError>
-        <sendOnFailure>true</sendOnFailure>
-        <sendOnSuccess>false</sendOnSuccess>
-        <sendOnWarning>false</sendOnWarning>
-      </notifier>
-    </notifiers>
-  </ciManagement>
-  <distributionManagement>
-    <snapshotRepository>
-      <id>store.terradue.com</id>
-      <name>store.terradue.com-snapshots</name>
-      <url>https://store.terradue.com/api/libs-snapshot-local</url>
-    </snapshotRepository>
-    <repository>
-      <id>store.terradue.com</id>
-      <name>store.terradue.com-releases</name>
-      <url>https://store.terradue.com/api/libs-release-local</url>
-    </repository>
-  </distributionManagement>
-  <repositories>
-    <repository>
-      <id>store.terradue.com</id>
-      <name>store.terradue.com-releases</name>
-      <url>http://store.terradue.com/api/any</url>
-      <releases>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-    </repository>
-  </repositories>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-    <implementation.build>${scmBranch}@r${buildNumber};${maven.build.timestamp}</implementation.build>
-    <rpmBasedir>${project.build.directory}/rpm</rpmBasedir>
-    <rpmTopdir>${project.build.directory}/rpm/${project.artifactId}</rpmTopdir>
-    <yumRepo>null</yumRepo>
-    <yumRepoType>testing</yumRepoType>
-    <dcsparent.version>2.1.0-docker-SNAPSHOT</dcsparent.version>
-    <docker.repository>docker-co.terradue.com</docker.repository>
+	<inceptionYear>2018</inceptionYear>
+	<organization>
+		<name>Terradue S.r.l.</name>
+		<url>https://www.terradue.com/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Terradue</name>
+		</license>
+	</licenses>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://build.terradue.com/</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnSuccess>false</sendOnSuccess>
+				<sendOnWarning>false</sendOnWarning>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>store.terradue.com</id>
+			<name>store.terradue.com-snapshots</name>
+			<url>https://store.terradue.com/api/libs-snapshot-local</url>
+		</snapshotRepository>
+		<repository>
+			<id>store.terradue.com</id>
+			<name>store.terradue.com-releases</name>
+			<url>https://store.terradue.com/api/libs-release-local</url>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>store.terradue.com</id>
+			<name>store.terradue.com-releases</name>
+			<url>http://store.terradue.com/api/any</url>
+			<releases>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+		</repository>
+	</repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
+		<implementation.build>${scmBranch}@r${buildNumber};${maven.build.timestamp}</implementation.build>
+		<rpmBasedir>${project.build.directory}/rpm</rpmBasedir>
+		<rpmTopdir>${project.build.directory}/rpm/${project.artifactId}</rpmTopdir>
+		<yumRepo>null</yumRepo>
+		<yumRepoType>testing</yumRepoType>
+		<dcsparent.version>2.1.0-docker-SNAPSHOT</dcsparent.version>
+		<docker.repository>docker-co.terradue.com</docker.repository>
 
-    <summary>dcs-stemp-s2-full</summary>
-    <description>dcs-stemp-s2-full</description>
-    <community>geohazards-tep</community>
-	<yumRepo>geohazards-tep</yumRepo>
-
-
-  
-  </properties>
-
-  <scm>
-    <connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
-    <developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
-    <url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
-    <tag>HEAD</tag>
-</scm>
-
-  <build>
-    <plugins>
-      
-     
-       
-
-    </plugins>
-    <pluginManagement>
-      <plugins>
-     
- 
- 
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>rpm-maven-plugin</artifactId>
-          <version>2.1.5</version>
-          <executions>
-            <execution>
-              <id>generate-rpm</id>
-              <goals>
-                <goal>rpm</goal>
-              </goals>
-              <phase>compile</phase>
-              <configuration>
-                <copyright>${project.inceptionYear}, Terradue, GPL</copyright>
-                <distribution>Terradue ${project.inceptionYear}</distribution>
-                <packager>Terradue</packager>
-                <name>${project.artifactId}</name>
-                <defaultUsername>root</defaultUsername>
-                <defaultGroupname>root</defaultGroupname>
-                <defaultDirmode>755</defaultDirmode>
-                <defaultFilemode>644</defaultFilemode>
-                <group>dcs</group>
-                <autoRequires>false</autoRequires>
-                <autoProvides>false</autoProvides>
-                <mappings>
-                  <mapping>
-                    <directory>/application</directory>
-                    <directoryIncluded>false</directoryIncluded>
-                    <recurseDirectories>true</recurseDirectories>
-                    <sources>
-                      <source>
-                        <location>${basedir}/src/main/app-resources/</location>
-                      </source>
-                    </sources>
-                  </mapping>
-                  <mapping>
-                    <directory>/application</directory>
-                    <filemode>664</filemode>
-                    <sources>
-                      <source>
-                        <location>${basedir}/src/main/app-resources</location>
-                        <includes>
-                          <include>application.xml</include>
-                        </includes>
-                      </source>
-                    </sources>
-                  </mapping>
-                  <mapping>
-                    <directory>/application</directory>
-                    <sources>
-                      <source>
-                        <location>${basedir}/src/main/app-resources</location>
-                        <includes>
-                          <include>**/run**</include>
-                          <include>**/bin**</include>
-                          <include>**/*.sh</include>
-                          <include>**/*.py</include>
-                          <include>**/*.R</include>
-                          <include>**/*.exe</include>
-                          <include>**/*.sav</include>
-                        </includes>
-                      </source>
-                    </sources>
-                    <filemode>755</filemode>
-                  </mapping>
-                </mappings>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <extensions>
-
-    </extensions>
-  </build>
-  <profiles>
-
-    <profile>
-      <id>package-app</id>
-      <activation>
-        <property>
-          <name>env</name>
-          <value>ci</value>
-        </property>
-      </activation>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-snapshots</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </snapshotRepository>
-        <repository>
-          <id>store.terradue.com</id>
-          <name>store.terradue.com-releases</name>
-          <url>https://store.terradue.com/api/${community}</url>
-        </repository>
-      </distributionManagement>
-      <build>
-        <plugins>
-          <!-- <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>rpm-maven-plugin</artifactId>
-            <version>2.1.5</version>
-            <executions>
-              <execution>
-                <id>rpm-version</id>
-                <goals>
-                  <goal>version</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin> -->
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>buildnumber-maven-plugin</artifactId>
-            <version>1.0</version>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <goals>
-                  <goal>create</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <useLastCommittedRevision>true</useLastCommittedRevision>
-              <revisionOnScmFailure>??????</revisionOnScmFailure>
-              <providerImplementations>
-                <svn>javasvn</svn>
-              </providerImplementations>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.0</version>
-          </plugin>
-
-
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>rpm-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>generate-rpm</id>
-                <goals>
-                  <goal>rpm</goal>
-                </goals>
-                <configuration>
-                  <defineStatements>
-                    <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-                  </defineStatements>
-                  <mappings combine.children="append">
-                    <mapping>
-                      <directory>/application/dependencies/python/</directory>
-                      <sources>
-                        <source>
-                          <location>${basedir}/src/main/app-resources/dependencies/python/packages.list</location>
-                        </source>
-                      </sources>
-                    </mapping>
-                  </mappings>
-				
-				<requires>
-                    <require>idl</require>
-                    <require>miniconda</require>
-                    <require>libgeotiff</require>
-                    <require>STEMP-S2</require>
-				</requires>
+		<summary>dcs-stemp-s2-full</summary>
+		<description>dcs-stemp-s2-full</description>
+		<community>geohazards-tep</community>
+		<yumRepo>geohazards-tep</yumRepo>
 
 
 
-                  <postinstallScriptlet combine.children="append">
-                    <script>conda install -y --file /application/dependencies/python/packages.list</script>
-                  </postinstallScriptlet>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
+	</properties>
+
+	<scm>
+		<connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
+		<developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
+		<url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<build>
+		<plugins>
+
+
+
+
+		</plugins>
+		<pluginManagement>
+			<plugins>
+
+
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<version>2.1.5</version>
+					<executions>
+						<execution>
+							<id>generate-rpm</id>
+							<goals>
+								<goal>rpm</goal>
+							</goals>
+
+							<configuration>
+								<copyright>${project.inceptionYear}, Terradue, GPL</copyright>
+								<distribution>Terradue ${project.inceptionYear}</distribution>
+								<packager>Terradue</packager>
+								<name>${project.artifactId}</name>
+								<defaultUsername>root</defaultUsername>
+								<defaultGroupname>root</defaultGroupname>
+								<defaultDirmode>755</defaultDirmode>
+								<defaultFilemode>644</defaultFilemode>
+								<group>dcs</group>
+								<autoRequires>false</autoRequires>
+								<autoProvides>false</autoProvides>
+								<mappings>
+									<mapping>
+										<directory>/application</directory>
+										<directoryIncluded>false</directoryIncluded>
+										<recurseDirectories>true</recurseDirectories>
+										<sources>
+											<source>
+												<location>${basedir}/src/main/app-resources/</location>
+											</source>
+										</sources>
+									</mapping>
+									<mapping>
+										<directory>/application</directory>
+										<filemode>664</filemode>
+										<sources>
+											<source>
+												<location>${basedir}/src/main/app-resources</location>
+												<includes>
+													<include>application.xml</include>
+												</includes>
+											</source>
+										</sources>
+									</mapping>
+									<mapping>
+										<directory>/application</directory>
+										<sources>
+											<source>
+												<location>${basedir}/src/main/app-resources</location>
+												<includes>
+													<include>**/run**</include>
+													<include>**/bin**</include>
+													<include>**/*.sh</include>
+													<include>**/*.py</include>
+													<include>**/*.R</include>
+													<include>**/*.exe</include>
+													<include>**/*.sav</include>
+												</includes>
+											</source>
+										</sources>
+										<filemode>755</filemode>
+									</mapping>
+								</mappings>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<extensions>
+
+		</extensions>
+	</build>
+	<profiles>
+
+		<profile>
+			<id>package-app</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>ci</value>
+				</property>
+			</activation>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>store.terradue.com</id>
+					<name>store.terradue.com-snapshots</name>
+					<url>https://store.terradue.com/api/${community}</url>
+				</snapshotRepository>
+				<repository>
+					<id>store.terradue.com</id>
+					<name>store.terradue.com-releases</name>
+					<url>https://store.terradue.com/api/${community}</url>
+				</repository>
+			</distributionManagement>
+			<build>
+				<plugins>
+
+
+
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-rpm</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>rpm</goal>
+								</goals>
+								<configuration>
+									<defineStatements>
+										<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+									</defineStatements>
+									<mappings combine.children="append">
+										<mapping>
+											<directory>/application/dependencies/python/</directory>
+											<sources>
+												<source>
+													<location>${basedir}/src/main/app-resources/dependencies/python/packages.list</location>
+												</source>
+											</sources>
+										</mapping>
+									</mappings>
+
+									<requires>
+										<require>idl</require>
+										<require>miniconda</require>
+										<require>libgeotiff</require>
+										<require>STEMP-S2</require>
+									</requires>
+
+
+
+									<postinstallScriptlet combine.children="append">
+										<script>conda install -y --file /application/dependencies/python/packages.list</script>
+									</postinstallScriptlet>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 
 					<plugin>
 						<groupId>t2pc.t2</groupId>
@@ -298,7 +264,7 @@
 									<goal>t2pcBuild</goal>
 								</goals>
 							</execution>
-							
+
 							<execution>
 								<id>t2pcPreset</id>
 								<phase>deploy</phase>
@@ -306,16 +272,16 @@
 									<goal>t2pcPreset</goal>
 								</goals>
 							</execution>
-							
+
 						</executions>
 					</plugin>
 
 
-        </plugins>
-      </build>
-    </profile>
+				</plugins>
+			</build>
+		</profile>
 
 
 
-  </profiles>
+	</profiles>
 </project>

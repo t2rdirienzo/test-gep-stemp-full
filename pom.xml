@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.terradue</groupId>
-  <artifactId>dcs-parent</artifactId>
-  <version>3.0.1-docker</version>
+  <groupId>it.ingv</groupId>
+  <artifactId>dcs-stemp-s2-full</artifactId>
   <packaging>pom</packaging>
-  <name>DCS parent POM</name>
-  <description>Parent POM for Terradue's Developer Cloud Sandbox (DCS) Applications</description>
+	<name>dcs-stemp-s2-full</name>
+
+   <description>dcs-stemp-s2-full</description>
+<version>1.2.1</version>
+
+
   <inceptionYear>2018</inceptionYear>
   <organization>
     <name>Terradue S.r.l.</name>
@@ -64,8 +67,23 @@
     <yumRepoType>testing</yumRepoType>
     <dcsparent.version>2.1.0-docker-SNAPSHOT</dcsparent.version>
     <docker.repository>docker-co.terradue.com</docker.repository>
-    <community/>
+
+    <summary>dcs-stemp-s2-full</summary>
+    <description>dcs-stemp-s2-full</description>
+    <community>geohazards-tep</community>
+	<yumRepo>geohazards-tep</yumRepo>
+
+
+  
   </properties>
+
+  <scm>
+    <connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
+    <developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
+    <url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
+    <tag>HEAD</tag>
+</scm>
+
   <build>
     <plugins>
       <plugin>

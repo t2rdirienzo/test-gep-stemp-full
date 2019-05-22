@@ -255,15 +255,18 @@
 							<t2pcCallbackUri>${t2pcCallbackUri}</t2pcCallbackUri>
 							<apikey></apikey>
 
+							<!-- default: ${basedir}/src/main/app-resources/application.xml
+							<applicationXml></applicationXml> -->
+
 						</configuration>
 						<executions>
-							<execution>
+							<!-- <execution>
 								<id>t2pcBuild</id>
 								<phase>package</phase>
 								<goals>
 									<goal>t2pcBuild</goal>
 								</goals>
-							</execution>
+							</execution> -->
 
 							<execution>
 								<id>t2pcPreset</id>

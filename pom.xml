@@ -256,7 +256,8 @@
 							<apikey></apikey>
 
 							<!-- default: ${basedir}/src/main/app-resources/application.xml
-							<applicationXml></applicationXml> -->
+							-->
+							<applicationXml>/dasd/adsad/addasd.xml</applicationXml> 
 
 						</configuration>
 						<executions>

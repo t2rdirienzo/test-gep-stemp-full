@@ -13,6 +13,53 @@
   </parent> -->
 	<description>dcs-stemp-s2-full</description>
 	<version>1.2.1</version>
+
+
+<!-- PARENT -->
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>repository.terradue.com</id>
+      <name>repository.terradue.com-snapshots</name>
+      <url>https://repository.terradue.com/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+      <id>repository.terradue.com</id>
+      <name>repository.terradue.com-releases</name>
+      <url>https://repository.terradue.com/artifactory/libs-release-local</url>
+    </repository>
+  </distributionManagement>
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots/>
+      <id>repository.terradue.com</id>
+      <name>repository.terradue.com-releases</name>
+      <url>https://repository.terradue.com/artifactory/libs-release-public</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <repositories>
+    <repository>
+      <id>repository.terradue.com</id>
+      <name>repository.terradue.com-releases</name>
+      <url>https://repository.terradue.com/artifactory/libs-release-public</url>
+      <releases>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+    </repository>
+  </repositories>
+<!-- PARENT -->
+
+
+
+
+
+
+
+
+
+
+
+
 	<properties>
 		<summary>dcs-stemp-s2-full</summary>
 		<description>dcs-stemp-s2-full</description>

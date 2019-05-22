@@ -257,7 +257,7 @@
 
 							<!-- default: ${basedir}/src/main/app-resources/application.xml
 							-->
-							<applicationXml>/dasd/adsad/addasd.xml</applicationXml> 
+							<!-- <applicationXml>/dasd/adsad/addasd.xml</applicationXml>  -->
 
 						</configuration>
 						<executions>

@@ -16,5 +16,5 @@
         <source id="s2-input" title="Sentinel-2 input" abstract="Sentinel-2 catalog reference" scope="runtime" refid="string:list" >https://catalog.terradue.com/sentinel2/search?uid=S2A_MSIL1C_20180518T205941_N0206_R014_T05QKB_20180519T000503</source>
       </sources>
     </node>
-  </workflow>
+  <!-- </workflow> -->
 </application>

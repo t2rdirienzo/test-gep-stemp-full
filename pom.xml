@@ -252,7 +252,7 @@
 							<applicationUser>${t2user}</applicationUser>
 							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
 							<dockerImage>${workflowContainer}</dockerImage>
-							<t2pcCallbackUri>${t2pcCallbackUri}?community=${community}&artifactId=${project.artifactId}&version=${project.version}&applicationContainer=${t2uuid}"</t2pcCallbackUri>
+							<t2pcCallbackUri>${t2pcCallbackUri}?community=${community}&artifactId=${project.artifactId}&version=${project.version}&applicationContainer=${t2uuid}</t2pcCallbackUri>
 							<apikey></apikey>
 
 							<!-- default: ${basedir}/src/main/app-resources/application.xml

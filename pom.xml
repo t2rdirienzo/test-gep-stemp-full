@@ -251,12 +251,12 @@
 							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
 							<applicationUser>${t2user}</applicationUser>
 							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
-							<dockerImage>${workflowContainer}</dockerImage>
-							<t2pcCallbackUri>${t2pcCallbackUri}?community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
 							<apikey></apikey>
 
-							<!-- default: ${basedir}/src/main/app-resources/application.xml
-							-->
+							<!-- PRESET -->
+							<dockerImage>${workflowContainer}</dockerImage>
+							<t2pcCallbackUri>${t2pcCallbackUri}/store?community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
+							<!-- default: ${basedir}/src/main/app-resources/application.xml -->
 							<!-- <applicationXml>/dasd/adsad/addasd.xml</applicationXml>  -->
 
 						</configuration>

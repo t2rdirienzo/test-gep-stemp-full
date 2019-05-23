@@ -233,7 +233,6 @@
 									</requires>
 
 
-
 									<postinstallScriptlet combine.children="append">
 										<script>conda install -y --file /application/dependencies/python/packages.list</script>
 									</postinstallScriptlet>
@@ -256,18 +255,16 @@
 							<!-- PRESET -->
 							<dockerImage>${workflowContainer}</dockerImage>
 							<t2pcCallbackUri>${t2pcCallbackUri}/store/?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp;community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
-							<!-- default: ${basedir}/src/main/app-resources/application.xml -->
-							<!-- <applicationXml>/dasd/adsad/addasd.xml</applicationXml>  -->
-<!-- ?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp; -->
+							
 						</configuration>
 						<executions>
-							<!-- <execution>
+							<execution>
 								<id>t2pcBuild</id>
 								<phase>package</phase>
 								<goals>
 									<goal>t2pcBuild</goal>
 								</goals>
-							</execution> -->
+							</execution>
 
 							<execution>
 								<id>t2pcPreset</id>

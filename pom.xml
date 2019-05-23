@@ -266,13 +266,13 @@
 								</goals>
 							</execution>
 
-							<execution>
+							<!-- <execution>
 								<id>t2pcPreset</id>
 								<phase>deploy</phase>
 								<goals>
 									<goal>t2pcPreset</goal>
 								</goals>
-							</execution>
+							</execution> -->
 
 						</executions>
 					</plugin>

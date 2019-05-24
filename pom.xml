@@ -46,6 +46,17 @@
 			<url>https://store.terradue.com/api/libs-release-local</url>
 		</repository>
 	</distributionManagement>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots/>
+			<id>repository.terradue.com</id>
+			<name>repository.terradue.com-releases</name>
+			<url>https://repository.terradue.com/artifactory/libs-release-public</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+
 	<repositories>
 		<repository>
 			<id>store.terradue.com</id>
@@ -255,7 +266,7 @@
 							<!-- PRESET -->
 							<dockerImage>${workflowContainer}</dockerImage>
 							<t2pcCallbackUri>${t2pcCallbackUri}/store/?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp;community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
-							
+
 						</configuration>
 						<executions>
 							<execution>

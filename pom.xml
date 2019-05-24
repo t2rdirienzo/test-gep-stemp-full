@@ -99,12 +99,12 @@
 							<executions>
 
 							<execution>
-								<id>t2pcPreset</id>
-								<phase>deploy</phase>
+								<id>t2pcBuild</id>
+								<phase>package</phase>
 								<goals>
-									<goal>t2pcPreset</goal>
+									<goal>t2pcBuild</goal>
 								</goals>
-							</execution>
+							</execution> 
 						</executions>
 					</plugin>
 

@@ -87,6 +87,27 @@
 								</configuration>
 							</execution>
 						</executions>
+
+
+
+
+					<plugin>
+						<groupId>t2pc.t2</groupId>
+						<artifactId>t2pc-mvn-build</artifactId>
+						<version>1.0</version>
+							<executions>
+
+							<execution>
+								<id>t2pcPreset</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>t2pcPreset</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+
 					</plugin>
 
 

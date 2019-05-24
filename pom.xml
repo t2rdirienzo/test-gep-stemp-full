@@ -59,9 +59,6 @@
 									<goal>rpm</goal>
 								</goals>
 								<configuration>
-									<defineStatements>
-										<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-									</defineStatements>
 									<mappings combine.children="append">
 										<mapping>
 											<directory>/application/dependencies/python/</directory>

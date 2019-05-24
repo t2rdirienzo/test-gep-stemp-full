@@ -77,8 +77,7 @@
 		<rpmTopdir>${project.build.directory}/rpm/${project.artifactId}</rpmTopdir>
 		<yumRepo>null</yumRepo>
 		<yumRepoType>testing</yumRepoType>
-		<dcsparent.version>2.1.0-docker-SNAPSHOT</dcsparent.version>
-		<docker.repository>docker-co.terradue.com</docker.repository>
+
 
 		<summary>dcs-stemp-s2-full</summary>
 		<description>dcs-stemp-s2-full</description>

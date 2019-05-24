@@ -7,210 +7,29 @@
 	<packaging>pom</packaging>
 	<name>dcs-stemp-s2-full</name>
 
+
+  	<parent>
+		<groupId>t2.t2pc</groupId>
+		<artifactId>dcs-t2pc</artifactId>
+    	<version>0.9</version>
+	</parent>
+
 	<description>dcs-stemp-s2-full</description>
 	<version>1.2.1</version>
 
 
-	<inceptionYear>2018</inceptionYear>
-	<organization>
-		<name>Terradue S.r.l.</name>
-		<url>https://www.terradue.com/</url>
-	</organization>
-	<licenses>
-		<license>
-			<name>Terradue</name>
-		</license>
-	</licenses>
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>https://build.terradue.com/</url>
-		<notifiers>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnSuccess>false</sendOnSuccess>
-				<sendOnWarning>false</sendOnWarning>
-			</notifier>
-		</notifiers>
-	</ciManagement>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>store.terradue.com</id>
-			<name>store.terradue.com-snapshots</name>
-			<url>https://store.terradue.com/api/libs-snapshot-local</url>
-		</snapshotRepository>
-		<repository>
-			<id>store.terradue.com</id>
-			<name>store.terradue.com-releases</name>
-			<url>https://store.terradue.com/api/libs-release-local</url>
-		</repository>
-	</distributionManagement>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<snapshots/>
-			<id>repository.terradue.com</id>
-			<name>repository.terradue.com-releases</name>
-			<url>https://repository.terradue.com/artifactory/libs-release-public</url>
-		</pluginRepository>
-	</pluginRepositories>
-
-
-	<repositories>
-		<repository>
-			<id>store.terradue.com</id>
-			<name>store.terradue.com-releases</name>
-			<url>http://store.terradue.com/api/any</url>
-			<releases>
-				<checksumPolicy>warn</checksumPolicy>
-			</releases>
-		</repository>
-	</repositories>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<implementation.build>${scmBranch}@r${buildNumber};${maven.build.timestamp}</implementation.build>
-		<rpmBasedir>${project.build.directory}/rpm</rpmBasedir>
-		<rpmTopdir>${project.build.directory}/rpm/${project.artifactId}</rpmTopdir>
-		<yumRepo>null</yumRepo>
-		<yumRepoType>testing</yumRepoType>
-
-
 		<summary>dcs-stemp-s2-full</summary>
 		<description>dcs-stemp-s2-full</description>
 		<community>geohazards-tep</community>
-		<yumRepo>geohazards-tep</yumRepo>
-
-
-
 	</properties>
-
 
 
 	<build>
 		<plugins>
-
-
-
-
 		</plugins>
-		<pluginManagement>
-			<plugins>
-
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>rpm-maven-plugin</artifactId>
-					<version>2.1.5</version>
-					<executions>
-						<execution>
-							<id>generate-rpm</id>
-							<phase>compile</phase>
-							<goals>
-								<goal>rpm</goal>
-							</goals>
-
-							<configuration>
-								<copyright>${project.inceptionYear}, Terradue, GPL</copyright>
-								<distribution>Terradue ${project.inceptionYear}</distribution>
-								<packager>Terradue</packager>
-								<name>${project.artifactId}</name>
-								<defaultUsername>root</defaultUsername>
-								<defaultGroupname>root</defaultGroupname>
-								<defaultDirmode>755</defaultDirmode>
-								<defaultFilemode>644</defaultFilemode>
-								<group>dcs</group>
-								<autoRequires>false</autoRequires>
-								<autoProvides>false</autoProvides>
-								<mappings>
-									<mapping>
-										<directory>/application</directory>
-										<directoryIncluded>false</directoryIncluded>
-										<recurseDirectories>true</recurseDirectories>
-										<sources>
-											<source>
-												<location>${basedir}/src/main/app-resources/</location>
-											</source>
-										</sources>
-									</mapping>
-									<mapping>
-										<directory>/application</directory>
-										<filemode>664</filemode>
-										<sources>
-											<source>
-												<location>${basedir}/src/main/app-resources</location>
-												<includes>
-													<include>application.xml</include>
-												</includes>
-											</source>
-										</sources>
-									</mapping>
-									<mapping>
-										<directory>/application</directory>
-										<sources>
-											<source>
-												<location>${basedir}/src/main/app-resources</location>
-												<includes>
-													<include>**/run**</include>
-													<include>**/bin**</include>
-													<include>**/*.sh</include>
-													<include>**/*.py</include>
-													<include>**/*.R</include>
-													<include>**/*.exe</include>
-													<include>**/*.sav</include>
-												</includes>
-											</source>
-										</sources>
-										<filemode>755</filemode>
-									</mapping>
-								</mappings>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-
-					<plugin>
-						<groupId>t2pc.t2</groupId>
-						<artifactId>t2pc-mvn-build</artifactId>
-						<version>1.0</version>
-						<configuration>
-
-							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
-							<applicationUser>${t2user}</applicationUser>
-							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
-							<apikey></apikey>
-
-							<!-- PRESET -->
-							<dockerImage>${workflowContainer}</dockerImage>
-							<t2pcCallbackUri>${t2pcCallbackUri}/store/?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp;community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
-
-						</configuration>
-						<executions>
-							<!-- <execution>
-								<id>t2pcBuild</id>
-								<phase>package</phase>
-								<goals>
-									<goal>t2pcBuild</goal>
-								</goals>
-							</execution> -->
-							<execution>
-								<id>t2pcPreset</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>t2pcPreset</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				 
-
-
-			</plugins>
-		</pluginManagement>
+ 
 		<extensions>
-
 		</extensions>
 	</build>
 	<profiles>
@@ -223,18 +42,7 @@
 					<value>ci</value>
 				</property>
 			</activation>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>store.terradue.com</id>
-					<name>store.terradue.com-snapshots</name>
-					<url>https://store.terradue.com/api/${community}</url>
-				</snapshotRepository>
-				<repository>
-					<id>store.terradue.com</id>
-					<name>store.terradue.com-releases</name>
-					<url>https://store.terradue.com/api/${community}</url>
-				</repository>
-			</distributionManagement>
+ 
 			<build>
 				<plugins>
 
@@ -282,12 +90,7 @@
 					</plugin>
 
 
-
-					<plugin>
-						<groupId>t2pc.t2</groupId>
-						<artifactId>t2pc-mvn-build</artifactId>
-						<version>1.0</version>
-					</plugin>
+ 
 
 				</plugins>
 

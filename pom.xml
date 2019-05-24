@@ -89,12 +89,12 @@
 
 	</properties>
 
-	<scm>
+	<!-- <scm>
 		<connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
 		<developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
 		<url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
 		<tag>HEAD</tag>
-	</scm>
+	</scm> -->
 
 	<build>
 		<plugins>
@@ -269,13 +269,13 @@
 
 						</configuration>
 						<executions>
-							<execution>
+							<!-- <execution>
 								<id>t2pcBuild</id>
 								<phase>package</phase>
 								<goals>
 									<goal>t2pcBuild</goal>
 								</goals>
-							</execution>
+							</execution> -->
 
 							<execution>
 								<id>t2pcPreset</id>

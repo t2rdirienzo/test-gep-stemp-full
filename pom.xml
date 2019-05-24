@@ -88,12 +88,7 @@
 
 	</properties>
 
-	<!-- <scm>
-		<connection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</connection>
-		<developerConnection>scm:git:ssh://git@github.com/geohazards-tep/dcs-stemp-s2-full</developerConnection>
-		<url>https://github.com/geohazards-tep/dcs-stemp-s2-full</url>
-		<tag>HEAD</tag>
-	</scm> -->
+
 
 	<build>
 		<plugins>
@@ -104,8 +99,6 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-
-
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -177,6 +170,43 @@
 						</execution>
 					</executions>
 				</plugin>
+
+					<plugin>
+						<groupId>t2pc.t2</groupId>
+						<artifactId>t2pc-mvn-build</artifactId>
+						<version>1.0</version>
+						<configuration>
+
+							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
+							<applicationUser>${t2user}</applicationUser>
+							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
+							<apikey></apikey>
+
+							<!-- PRESET -->
+							<dockerImage>${workflowContainer}</dockerImage>
+							<t2pcCallbackUri>${t2pcCallbackUri}/store/?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp;community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
+
+						</configuration>
+						<executions>
+							<!-- <execution>
+								<id>t2pcBuild</id>
+								<phase>package</phase>
+								<goals>
+									<goal>t2pcBuild</goal>
+								</goals>
+							</execution> -->
+							<execution>
+								<id>t2pcPreset</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>t2pcPreset</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+
+
 			</plugins>
 		</pluginManagement>
 		<extensions>
@@ -251,44 +281,17 @@
 						</executions>
 					</plugin>
 
+
+
 					<plugin>
 						<groupId>t2pc.t2</groupId>
 						<artifactId>t2pc-mvn-build</artifactId>
 						<version>1.0</version>
-						<configuration>
-
-							<applicationRpm>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.artifactId}-${project.version}-1.noarch.rpm</applicationRpm>
-							<applicationUser>${t2user}</applicationUser>
-							<dockerFileName>https://repository.terradue.com/artifactory/libs-release-public/com/terradue/productioncenter/v01/dockerfile</dockerFileName>
-							<apikey></apikey>
-
-							<!-- PRESET -->
-							<dockerImage>${workflowContainer}</dockerImage>
-							<t2pcCallbackUri>${t2pcCallbackUri}/store/?t2PortalManager=${t2PortalManager}&amp;t2uuid=${t2uuid}&amp;community=${community}&amp;artifactId=${project.artifactId}&amp;version=${project.version}&amp;applicationContainer=${workflowContainer}</t2pcCallbackUri>
-
-						</configuration>
-						<executions>
-							<!-- <execution>
-								<id>t2pcBuild</id>
-								<phase>package</phase>
-								<goals>
-									<goal>t2pcBuild</goal>
-								</goals>
-							</execution> -->
-
-							<execution>
-								<id>t2pcPreset</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>t2pcPreset</goal>
-								</goals>
-							</execution>
-
-						</executions>
 					</plugin>
 
 
-				</plugins>
+
+
 			</build>
 		</profile>
 

@@ -11,7 +11,7 @@
   	<parent>
 		<groupId>t2.t2pc</groupId>
 		<artifactId>dcs-t2pc</artifactId>
-    	<version>1.0.1-SNAPSHOT<</version>
+    	<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<description>dcs-stemp-s2-full</description>

@@ -11,7 +11,7 @@
   	<parent>
 		<groupId>t2.t2pc</groupId>
 		<artifactId>dcs-t2pc</artifactId>
-    	<version>1.0.0-SNAPSHOT</version>
+    	<version>1.0.0</version>
 	</parent>
 
 	<description>dcs-stemp-s2-full</description>
@@ -92,7 +92,7 @@
 				<plugin>
 					<groupId>t2pc.t2</groupId>
 					<artifactId>t2pc-mvn-build</artifactId>
-					<version>1.0.0-SNAPSHOT</version>
+					<version>1.0.0</version>
 				</plugin>
 
 

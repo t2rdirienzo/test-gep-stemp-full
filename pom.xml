@@ -92,9 +92,9 @@
 				<plugin>
 					<groupId>t2pc.t2</groupId>
 					<artifactId>t2pc-mvn-build</artifactId>
-					<version>1.0</version>
+					<version>1.0.0-SNAPSHOT</version>
 
-					<executions>
+					<executions  combine.children="append">
 						<execution>
 								<id>t2pcBuild</id>
 								<phase>package</phase>

@@ -89,18 +89,6 @@
 					</plugin>
 
 
-				<plugin>
-					<groupId>t2pc.t2</groupId>
-					<artifactId>t2pc-mvn-build</artifactId>
-					<version>1.0.0</version>
-				</plugin>
-
-
-
- 
-
-				</plugins>
-
 
 			</build>
 		</profile>

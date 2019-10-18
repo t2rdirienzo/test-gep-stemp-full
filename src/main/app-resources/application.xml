@@ -47,7 +47,7 @@
       </defaultJobconf>
     </jobTemplate>
   </jobTemplates>
-  <workflow id="workflow" title="Ellip Cache renewal, population, cleanup and retry" abstract="Simple workflow based on the DCS Python archetype">
+  <workflow id="dcs-stemp-s2-full" title="Ellip Cache renewal, population, cleanup and retry" abstract="Simple workflow based on the DCS Python archetype">
     <workflowVersion>1.0</workflowVersion>
     <node id="cache-renewal">
       <job id="cache-renewal"/>

@@ -80,21 +80,26 @@ com.terradue.wps_oozie.process.OozieAbstractAlgorithm
 				<source refid="wf:node">cache-renewal</source>
 			</sources>
 		</node>
-		<node id="cache-retry">
-			<job id="cache-retry"/>
-			<sources>
-				<source refid="wf:node">cache-cleanup</source>
-				<!--source id="series" refid="cas:series" scope="runtime" title="Catalogue URL" abstract="Catalogue URL" maxOccurs="1">https://catalog.terradue.com/ellip-caching/series/recovery/description</source-->
-			</sources>
-		</node>
+
 
 		<node id="node3">
 			<job id="cache-template3"/>
 			<sources>
-				<source refid="wf:node">cache-retry</source>
+				<source refid="wf:node">cache-cleanup</source>
 			</sources>
 			<parameters/>
 		</node>
+
+
+		<node id="cache-retry">
+			<job id="cache-retry"/>
+			<sources>
+				<source refid="wf:node">node3</source>
+
+			</sources>
+		</node>
+
+
 
 	</workflow>
 </application>

@@ -1,72 +1,100 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="application">
-  <jobTemplates>
-    <jobTemplate id="cache-renewal">
-      <streamingExecutable>/application/cache-renewal/run</streamingExecutable>
-      <defaultParameters>
-        <parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
-        <parameter id="recovery_series_id" type="LiteralData" scope="runtime" maxOccurs="1" title="recovery series identifier" abstract="recovery series id">recovery</parameter>
-        <parameter id="coordinator_id" type="LiteralData" scope="runtime" maxOccurs="1" title="Coordinator ID" abstract="coordinator id">ellip-caching-renew-00001</parameter>
-        <parameter id="metrics_endpoint" type="LiteralData" scope="runtime" maxOccurs="1" title="Metrcis endpoint" abstract="Index">https://ellip_metrics.terradue.com</parameter>
-        <parameter id="username" title="Trigger: Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
-        <parameter id="api_key" title="Trigger: Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">xxxxxxxxxxx</parameter>
-         <parameter id="execution_date" title="Execution date" abstract="Execution date" maxOccurs="1" scope="runtime" type="LiteralData">2018-05-02</parameter>
-        <parameter id="config_url" title="Configuration file" abstract="Configuration file" maxOccurs="1" scope="runtime" type="LiteralData">https://store.terradue.com/ellip-caching/config/cache-config.ini</parameter>
-      </defaultParameters>
-      <defaultJobconf>
-        <property id="mapred.task.timeout">600000</property>
-      </defaultJobconf>
-    </jobTemplate>
-    <jobTemplate id="cache-cleanup">
-      <streamingExecutable>/application/cache-cleanup/run</streamingExecutable>
-      <defaultParameters>
-          <parameter id="config_url" title="Configuration file" abstract="Configuration file" maxOccurs="1" scope="runtime" type="LiteralData">https://store.terradue.com/ellip-caching/config/cache-config.ini</parameter>
-        <parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
-        <parameter id="username" title="Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
-        <parameter id="api_key" title="Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">AKCp5aTksu9JbizwsbypcLEAKxAS8vzwEFZjNhpZE7SSYG8c3FgRpjh5eFiRbBKyr81Hu6CV3</parameter>
-          <parameter id="execution_date" title="Execution date" abstract="Execution date" maxOccurs="1" scope="runtime" type="LiteralData">2017-12-05</parameter>
-      </defaultParameters>
-      <defaultJobconf>
-        <property id="ciop.job.max.tasks">1</property>
-        <property id="mapred.task.timeout">600000</property>
-      </defaultJobconf>
-    </jobTemplate>
-    <jobTemplate id="cache-retry">
-      <streamingExecutable>/application/cache-retry/run</streamingExecutable>
-      <defaultParameters>
-        <parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
-        <parameter id="recovery_series_id" type="LiteralData" scope="runtime" maxOccurs="1" title="recovery series identifier" abstract="recovery series id">recovery</parameter>
-        <parameter id="coordinator_id" type="LiteralData" scope="runtime" maxOccurs="1" title="Coordinator ID" abstract="coordinator id">ellip-caching-renew-00001</parameter>
-        <parameter id="metrics_endpoint" type="LiteralData" scope="runtime" maxOccurs="1" title="Metrcis endpoint" abstract="Index">https://ellip_metrics.terradue.com</parameter>
-        <parameter id="username" title="Trigger: Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
-        <parameter id="api_key" title="Trigger: Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">sssssssssssss</parameter>
-      </defaultParameters>
-      <defaultJobconf>
-        <property id="ciop.job.max.tasks">1</property>
-        <property id="mapred.task.timeout">600000</property>
-      </defaultJobconf>
-    </jobTemplate>
-  </jobTemplates>
-  <workflow id="dcs-stemp-s2-full" title="Ellip Cache renewal, population, cleanup and retry" abstract="Simple workflow based on the DCS Python archetype">
-    <workflowVersion>1.0</workflowVersion>
-    <node id="cache-renewal">
-      <job id="cache-renewal"/>
-      <sources>
-        <source id="series" refid="cas:series" scope="runtime" title="Catalogue URL" abstract="Catalogue URL" maxOccurs="1">https://catalog.terradue.com/ellip-caching/series/description</source>
-      </sources>
-    </node>
-    <node id="cache-cleanup">
-      <job id="cache-cleanup"/>
-      <sources>
-        <source refid="wf:node">cache-renewal</source>
-      </sources>
-    </node>
-    <node id="cache-retry">
-      <job id="cache-retry"/>
-      <sources>
-        <source refid="wf:node">cache-cleanup</source>
-        <!--source id="series" refid="cas:series" scope="runtime" title="Catalogue URL" abstract="Catalogue URL" maxOccurs="1">https://catalog.terradue.com/ellip-caching/series/recovery/description</source-->
-      </sources>
-    </node>
-  </workflow>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="application">
+	<jobTemplates>
+
+		<jobTemplate id="cache-template3" jobType="wps_client">
+			<defaultParameters>
+			</defaultParameters>
+			<defaultJobconf>
+				<property id="ogc.wps.access.point">http://wps_server:8080/wps/WebProcessingService</property>
+				<property id="ogc.wps.process.identifier">
+com.terradue.wps_oozie.process.OozieAbstractAlgorithm
+				</property>
+				<property id="ogc.wps.storeExecuteResponse">true</property>
+				<property id="ogc.wps.status">true</property>
+				<property id="mapred.task.timeout">3600000</property>
+				<property id="ciop.job.max.tasks">1</property>
+			</defaultJobconf>
+		</jobTemplate>
+
+
+
+		<jobTemplate id="cache-renewal">
+			<streamingExecutable>/application/cache-renewal/run</streamingExecutable>
+			<defaultParameters>
+				<parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
+				<parameter id="recovery_series_id" type="LiteralData" scope="runtime" maxOccurs="1" title="recovery series identifier" abstract="recovery series id">recovery</parameter>
+				<parameter id="coordinator_id" type="LiteralData" scope="runtime" maxOccurs="1" title="Coordinator ID" abstract="coordinator id">ellip-caching-renew-00001</parameter>
+				<parameter id="metrics_endpoint" type="LiteralData" scope="runtime" maxOccurs="1" title="Metrcis endpoint" abstract="Index">https://ellip_metrics.terradue.com</parameter>
+				<parameter id="username" title="Trigger: Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
+				<parameter id="api_key" title="Trigger: Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">xxxxxxxxxxx</parameter>
+				<parameter id="execution_date" title="Execution date" abstract="Execution date" maxOccurs="1" scope="runtime" type="LiteralData">2018-05-02</parameter>
+				<parameter id="config_url" title="Configuration file" abstract="Configuration file" maxOccurs="1" scope="runtime" type="LiteralData">https://store.terradue.com/ellip-caching/config/cache-config.ini</parameter>
+			</defaultParameters>
+			<defaultJobconf>
+				<property id="mapred.task.timeout">600000</property>
+			</defaultJobconf>
+		</jobTemplate>
+		<jobTemplate id="cache-cleanup">
+			<streamingExecutable>/application/cache-cleanup/run</streamingExecutable>
+			<defaultParameters>
+				<parameter id="config_url" title="Configuration file" abstract="Configuration file" maxOccurs="1" scope="runtime" type="LiteralData">https://store.terradue.com/ellip-caching/config/cache-config.ini</parameter>
+				<parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
+				<parameter id="username" title="Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
+				<parameter id="api_key" title="Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">AKCp5aTksu9JbizwsbypcLEAKxAS8vzwEFZjNhpZE7SSYG8c3FgRpjh5eFiRbBKyr81Hu6CV3</parameter>
+				<parameter id="execution_date" title="Execution date" abstract="Execution date" maxOccurs="1" scope="runtime" type="LiteralData">2017-12-05</parameter>
+			</defaultParameters>
+			<defaultJobconf>
+				<property id="ciop.job.max.tasks">1</property>
+				<property id="mapred.task.timeout">600000</property>
+			</defaultJobconf>
+		</jobTemplate>
+		<jobTemplate id="cache-retry">
+			<streamingExecutable>/application/cache-retry/run</streamingExecutable>
+			<defaultParameters>
+				<parameter id="index" type="LiteralData" scope="runtime" maxOccurs="1" title="Index" abstract="Index">ellip-caching</parameter>
+				<parameter id="recovery_series_id" type="LiteralData" scope="runtime" maxOccurs="1" title="recovery series identifier" abstract="recovery series id">recovery</parameter>
+				<parameter id="coordinator_id" type="LiteralData" scope="runtime" maxOccurs="1" title="Coordinator ID" abstract="coordinator id">ellip-caching-renew-00001</parameter>
+				<parameter id="metrics_endpoint" type="LiteralData" scope="runtime" maxOccurs="1" title="Metrcis endpoint" abstract="Index">https://ellip_metrics.terradue.com</parameter>
+				<parameter id="username" title="Trigger: Terradue username" abstract="Terradue username" maxOccurs="1" scope="runtime" type="LiteralData">ellip-caching</parameter>
+				<parameter id="api_key" title="Trigger: Terradue API key" abstract="Terradue API key" maxOccurs="1" scope="runtime" type="LiteralData">sssssssssssss</parameter>
+			</defaultParameters>
+			<defaultJobconf>
+				<property id="ciop.job.max.tasks">1</property>
+				<property id="mapred.task.timeout">600000</property>
+			</defaultJobconf>
+		</jobTemplate>
+	</jobTemplates>
+	<workflow id="dcs-stemp-s2-full" title="Ellip Cache renewal, population, cleanup and retry" abstract="Simple workflow based on the DCS Python archetype">
+		<workflowVersion>1.0</workflowVersion>
+		<node id="cache-renewal">
+			<job id="cache-renewal"/>
+			<sources>
+				<source id="series" refid="cas:series" scope="runtime" title="Catalogue URL" abstract="Catalogue URL" maxOccurs="1">https://catalog.terradue.com/ellip-caching/series/description</source>
+			</sources>
+		</node>
+		<node id="cache-cleanup">
+			<job id="cache-cleanup"/>
+			<sources>
+				<source refid="wf:node">cache-renewal</source>
+			</sources>
+		</node>
+		<node id="cache-retry">
+			<job id="cache-retry"/>
+			<sources>
+				<source refid="wf:node">cache-cleanup</source>
+				<!--source id="series" refid="cas:series" scope="runtime" title="Catalogue URL" abstract="Catalogue URL" maxOccurs="1">https://catalog.terradue.com/ellip-caching/series/recovery/description</source-->
+			</sources>
+		</node>
+
+		<node id="node3">
+			<job id="cache-template"/>
+			<sources>
+				<source refid="wf:node">cache-retry</source>
+			</sources>
+			<parameters/>
+		</node>
+
+	</workflow>
 </application>

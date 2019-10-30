@@ -89,7 +89,7 @@ com.terradue.wps_oozie.process.OozieAbstractAlgorithm
 		</node>
 
 		<node id="node3">
-			<job id="cache-template"/>
+			<job id="cache-template3"/>
 			<sources>
 				<source refid="wf:node">cache-retry</source>
 			</sources>

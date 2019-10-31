@@ -150,7 +150,7 @@
 		</node>
 
         <node id="cache-retry">
-            <job id="cache-retry"/>
+            <job id="cache-template3"/>
             <sources>
                 <source refid="wf:node">node_snap_s1_ifg_merge_filter</source>
 

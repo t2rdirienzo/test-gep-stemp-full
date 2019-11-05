@@ -130,7 +130,7 @@
 		<node id="node_snap_s1_ifg_input_splitting">
 			<job id="snap_s1_ifg_input_splitting" />
 			<sources>
-				<source id="master" title="Master product reference" abstract="Define the master product reference to be processed with SNAP" scope="runtime" refid="string:list" maxOccurs="1"></source>
+				<source id="mastersource" title="Master product reference" abstract="Define the master product reference to be processed with SNAP" scope="runtime" refid="string:list" maxOccurs="1"></source>
 				<source id="master2" title="Master product reference" abstract="Define the master product reference to be processed with SNAP" scope="test" refid="string:list" maxOccurs="1">test,test</source>
 			</sources>
 			<parameters/>
